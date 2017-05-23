@@ -51,6 +51,7 @@ var productArray = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, c
 //create array for participant answers
 var userSelectionHistory = [];
 var excludedNumbers = [];
+var resultsTallyArray = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
 //create functions that captures user responses, progresses through products, etc
 function generateRandom(){
   var arrayIndex = Math.floor(Math.random() * productArray.length);
@@ -127,10 +128,25 @@ function createEventListeners(){
       placeImgTagsInDom();
       if (counter<25){
         createEventListeners();
+      } else {
+        createResultTags();
       }
     });
   }
 }
+
+function createResultTags(){
+  var title = document.getElementById('results');
+  title.innerHTML = 'Results';
+  var resultsList = document.getElementById('resultlist');
+  var resultsTagArray = [];
+  for (var i=0; i<resultsTallyArray.length; i++){
+    var listItems = '<li>' + productArray[i].name + ' was selected ' + productArray[i].timesselected + ' times and clicked ' + productArray[i].timesclicked + ' times.</li>';
+    resultsTagArray.push(listItems);
+  }
+  resultsList.innerHTML = resultsTagArray.join('');
+}
+
 
 generateSelectionIndexes();
 placeImgTagsInDom();

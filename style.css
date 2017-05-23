@@ -15,7 +15,6 @@ main {
   background: black;
   color: white;
   width: 960px;
-  height: 1000px;
   margin: 0 auto;
   font-family: 'droid serif', serif;
 }
@@ -61,4 +60,10 @@ li {
 #selectionimages:hover img:not(:hover){
   max-width: 100px;
   max-height: 100px;
+}
+.floatclear{
+  clear: both;
+}
+main section {
+  text-align: center;
 }
