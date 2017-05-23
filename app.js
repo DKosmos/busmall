@@ -1,5 +1,6 @@
 'use strict';
 
+var counter = 0;
 //create constructor for each product
 function Product(name, url) {
   this.name = name;
@@ -10,8 +11,17 @@ function Product(name, url) {
 
 //create methods (create img tag)
 Product.prototype.createImgTag = function () {
-  var tag = '<img src="' + this.url + '">';
+  var tag = '<img id="' + this.name.toLowerCase() + '" src="' + this.url + '">';
   return tag;
+};
+
+Product.prototype.pickedMe = function () {
+  counter++;
+  this.timesclicked++;
+};
+
+Product.prototype.beenChosen = function () {
+  this.timesselected++;
 };
 
 //create array of product objects
@@ -51,7 +61,6 @@ function generateSelectionIndexes(){
   for (var i=0; i<3; i++){
     do{
       var indexNum = generateRandom();
-      console.log(indexNum);
     } while (indexNum === excludedNumbers[0] || indexNum === excludedNumbers[1] || indexNum === excludedNumbers[2] || indexNum === excludedNumbers[3] || indexNum === excludedNumbers[4] || indexNum === excludedNumbers[5]);
     excludedNumbers[i] = indexNum;
   }
@@ -78,6 +87,36 @@ function placeImgTagsInDom(){
   var tagsArray = generateSelectionImgTags();
   for (var i=0; i<3; i++){
     container.children[i].innerHTML = tagsArray[i];
+    productArray[excludedNumbers[i]].beenChosen();
   }
 }
+
+function userSelection(){
+  var imgSelected = this.getAttribute('src');
+  var productSelected = imgSelected.split('/')[1].split('.')[0];
+  return productSelected;
+}
+
+function createEventListeners(){
+  var container = document.getElementById('selectionimages');
+  for (var i=0; i<3; i++){
+    container.children[i].children[0].addEventListener('click', function(){
+      var source = this.getAttribute('src');
+      var productSelected = source.split('/')[2].split('.')[0];
+      console.log(productSelected);
+      productSelected = productSelected.replace('-','');
+      window[productSelected].pickedMe();
+      logPreviousSelection();
+      generateSelectionIndexes();
+      placeImgTagsInDom();
+      createEventListeners();
+      counter++;
+    });
+  }
+}
+
+generateSelectionIndexes();
+placeImgTagsInDom();
+logPreviousSelection();
+createEventListeners();
 //create functions that tally the answers and presents the data
