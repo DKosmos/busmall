@@ -10,8 +10,7 @@ function Product(name, url) {
 
 //create methods (create img tag)
 Product.prototype.createImgTag = function () {
-  var tag = document.createElement('img');
-  tag.setAttribute('src', this.url);
+  var tag = '<img src="' + this.url + '">';
   return tag;
 };
 
@@ -41,6 +40,44 @@ var productArray = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, c
 
 //create array for participant answers
 var userSelectionHistory = [];
+var excludedNumbers = [];
 //create functions that captures user responses, progresses through products, etc
+function generateRandom(){
+  var arrayIndex = Math.floor(Math.random() * productArray.length);
+  return arrayIndex;
+}
 
+function generateSelectionIndexes(){
+  for (var i=0; i<3; i++){
+    do{
+      var indexNum = generateRandom();
+      console.log(indexNum);
+    } while (indexNum === excludedNumbers[0] || indexNum === excludedNumbers[1] || indexNum === excludedNumbers[2] || indexNum === excludedNumbers[3] || indexNum === excludedNumbers[4] || indexNum === excludedNumbers[5]);
+    excludedNumbers[i] = indexNum;
+  }
+  return excludedNumbers;
+}
+
+function logPreviousSelection(){
+  for (var i=0; i<3; i++){
+    var j = i + 3;
+    excludedNumbers[j] = excludedNumbers[i];
+  }
+}
+
+function generateSelectionImgTags(){
+  var tagsArray = [];
+  for (var i=0; i<3; i++){
+    tagsArray.push(productArray[excludedNumbers[i]].createImgTag());
+  }
+  return tagsArray;
+}
+
+function placeImgTagsInDom(){
+  var container = document.getElementById('selectionimages');
+  var tagsArray = generateSelectionImgTags();
+  for (var i=0; i<3; i++){
+    container.children[i].innerHTML = tagsArray[i];
+  }
+}
 //create functions that tally the answers and presents the data
