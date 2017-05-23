@@ -1,0 +1,60 @@
+header {
+  width: 960px;
+  height: 100px;
+  background: black;
+  color: white;
+  text-align: center;
+  margin: 0 auto;
+}
+h1 {
+  font-size: 40px;
+  font-family: roboto;
+  padding-top: 20px;
+}
+main {
+  background: black;
+  color: white;
+  width: 960px;
+  height: 1000px;
+  margin: 0 auto;
+  font-family: 'droid serif', serif;
+}
+h2 {
+  padding: 10px;
+  text-decoration: underline;
+  font-size: 28px;
+}
+p {
+  text-indent: 30px;
+  padding: 10px;
+}
+h3 {
+  font-size: 22px;
+  text-decoration: underline;
+  padding: 10px;
+}
+li {
+  padding: 10px;
+}
+#participantcounter{
+  text-align: center;
+  font-size: 22px;
+  margin-top: 30px;
+}
+#selectionimages {
+  width: 600px;
+  background: lightgrey;
+  margin: 30px auto;
+}
+#selectionimages li {
+  float: left;
+  padding: 0;
+}
+#selectionimages:hover img:hover{
+  width: 400px;
+  height: 400px;
+}
+#selectionimages:hover img:not(:hover){
+  width: 100px;
+  height: 100px;
+}
