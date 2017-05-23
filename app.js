@@ -97,6 +97,19 @@ function userSelection(){
   return productSelected;
 }
 
+function logUserSelections(){
+  for (var i=0; i<3; i++){
+    userSelectionHistory.push(productArray[excludedNumbers[i]]);
+  }
+  console.log(userSelectionHistory);
+}
+
+function updatedCounterHtml(){
+  var container = document.getElementById('participantcounter');
+  var newCounterInfo = 'You\'ve made ' + counter + ' selections!';
+  container.children[0].innerHTML = newCounterInfo;
+}
+
 function createEventListeners(){
   var container = document.getElementById('selectionimages');
   for (var i=0; i<3; i++){
@@ -106,11 +119,15 @@ function createEventListeners(){
       console.log(productSelected);
       productSelected = productSelected.replace('-','');
       window[productSelected].pickedMe();
+      logUserSelections();
+      updatedCounterHtml();
+      userSelectionHistory.push(productSelected);
       logPreviousSelection();
       generateSelectionIndexes();
       placeImgTagsInDom();
-      createEventListeners();
-      counter++;
+      if (counter<25){
+        createEventListeners();
+      }
     });
   }
 }
