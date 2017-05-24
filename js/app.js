@@ -92,11 +92,11 @@ function placeImgTagsInDom(){
   }
 }
 
-function userSelection(){
-  var imgSelected = this.getAttribute('src');
-  var productSelected = imgSelected.split('/')[1].split('.')[0];
-  return productSelected;
-}
+// function userSelection(){
+//   var imgSelected = this.getAttribute('src');
+//   var productSelected = imgSelected.split('/')[1].split('.')[0];
+//   return productSelected;
+// }
 
 function logUserSelections(){
   for (var i=0; i<3; i++){
@@ -130,6 +130,7 @@ function createEventListeners(){
         createEventListeners();
       } else {
         createResultTags();
+        createdRadarChart();
       }
     });
   }
@@ -140,13 +141,104 @@ function createResultTags(){
   title.innerHTML = 'Results';
   var resultsList = document.getElementById('resultlist');
   var resultsTagArray = [];
-  for (var i=0; i<resultsTallyArray.length; i++){
+  for (var i=0; i<productArray.length; i++){
     var listItems = '<li>' + productArray[i].name + ' was selected ' + productArray[i].timesselected + ' times and clicked ' + productArray[i].timesclicked + ' times.</li>';
     resultsTagArray.push(listItems);
   }
   resultsList.innerHTML = resultsTagArray.join('');
 }
 
+function tallyClickedResultsToArray(){
+  var talliedClickResults = [];
+  for (var i=0; i<productArray.length; i++){
+    talliedClickResults.push(productArray[i].timesclicked);
+  }
+  return talliedClickResults;
+}
+
+function tallySelectedResultsToArray(){
+  var talliedSelectedResults = [];
+  for (var i=0; i<productArray.length; i++){
+    talliedSelectedResults.push(productArray[i].timesselected);
+  }
+  return talliedSelectedResults;
+}
+
+function unpackProductNames(){
+  var productNames = [];
+  for (var i=0; i<productArray.length; i++){
+    productNames.push(productArray[i].name);
+  }
+  return productNames;
+}
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+var canvas2 = document.getElementById('canvas2');
+var ctx2 = canvas2.getContext('2d');
+
+function createClickedChart(){
+  var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: unpackProductNames(),
+      datasets: [{
+        label: 'Times Product Was Clicked',
+        data: tallyClickedResultsToArray(),
+        backgroundColor: ['#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3b5f52', '#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3b5f52', '#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3b5f52', '#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3v5f52'],
+      }]
+    },
+    options: {}
+  });
+}
+
+function createSelectedChart(){
+  var chart = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: unpackProductNames(),
+      datasets: [{
+        label: 'Times Product Was Selected',
+        data: tallySelectedResultsToArray(),
+        backgroundColor: ['#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3b5f52', '#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3b5f52', '#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3b5f52', '#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3v5f52'],
+      }]
+    },
+    options: {}
+  });
+}
+
+function createdRadarChart(){
+  var chart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: unpackProductNames(),
+      datasets: [
+        {
+          label: 'Times Selected',
+          backgroundColor: 'rgba(160,190,217,0.2)',
+          pointBackgroundColor: '#466c8c',
+          pointHoverBackgroundColor: '#466c8c',
+          data: tallySelectedResultsToArray()
+        },
+        {
+          label: 'Times Clicked',
+          backgroundColor: 'rgba(217,197,193,0.2)',
+          pointBackgroundColor: '#8c7370',
+          pointHoverBackgroundColor: '#8c7370',
+          data: tallyClickedResultsToArray()
+        }
+      ]
+    },
+  });
+}
+
+//https://www.w3schools.com/js/js_array_sort.asp
+function topFiveClicked(){
+  var topFiveArray = productArray.sort(function(a, b){return b.timesclicked - a.timesclicked;});
+  topFiveArray = topFiveArray.splice(0,5);
+  return topFiveArray;
+}
 
 generateSelectionIndexes();
 placeImgTagsInDom();

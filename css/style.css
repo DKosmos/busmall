@@ -67,3 +67,6 @@ li {
 main section {
   text-align: center;
 }
+canvas {
+  background: grey;
+}
