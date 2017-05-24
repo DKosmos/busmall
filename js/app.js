@@ -51,7 +51,10 @@ var productArray = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, c
 //create array for participant answers
 var userSelectionHistory = [];
 var excludedNumbers = [];
-var resultsTallyArray = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var canvas2 = document.getElementById('canvas2');
+var ctx2 = canvas2.getContext('2d');
 //create functions that captures user responses, progresses through products, etc
 function generateRandom(){
   var arrayIndex = Math.floor(Math.random() * productArray.length);
@@ -92,17 +95,10 @@ function placeImgTagsInDom(){
   }
 }
 
-// function userSelection(){
-//   var imgSelected = this.getAttribute('src');
-//   var productSelected = imgSelected.split('/')[1].split('.')[0];
-//   return productSelected;
-// }
-
 function logUserSelections(){
   for (var i=0; i<3; i++){
     userSelectionHistory.push(productArray[excludedNumbers[i]]);
   }
-  console.log(userSelectionHistory);
 }
 
 function updatedCounterHtml(){
@@ -171,12 +167,6 @@ function unpackProductNames(){
   }
   return productNames;
 }
-
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-
-var canvas2 = document.getElementById('canvas2');
-var ctx2 = canvas2.getContext('2d');
 
 function createClickedChart(){
   var chart = new Chart(ctx, {
