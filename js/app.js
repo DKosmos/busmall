@@ -92,11 +92,11 @@ function placeImgTagsInDom(){
   }
 }
 
-function userSelection(){
-  var imgSelected = this.getAttribute('src');
-  var productSelected = imgSelected.split('/')[1].split('.')[0];
-  return productSelected;
-}
+// function userSelection(){
+//   var imgSelected = this.getAttribute('src');
+//   var productSelected = imgSelected.split('/')[1].split('.')[0];
+//   return productSelected;
+// }
 
 function logUserSelections(){
   for (var i=0; i<3; i++){
@@ -130,8 +130,7 @@ function createEventListeners(){
         createEventListeners();
       } else {
         createResultTags();
-        createClickedChart();
-        createSelectedChart();
+        createdRadarChart();
       }
     });
   }
@@ -206,6 +205,31 @@ function createSelectedChart(){
       }]
     },
     options: {}
+  });
+}
+
+function createdRadarChart(){
+  var chart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: unpackProductNames(),
+      datasets: [
+        {
+          label: 'Times Selected',
+          backgroundColor: 'rgba(160,190,217,0.2)',
+          pointBackgroundColor: '#466c8c',
+          pointHoverBackgroundColor: '#466c8c',
+          data: tallySelectedResultsToArray()
+        },
+        {
+          label: 'Times Clicked',
+          backgroundColor: 'rgba(217,197,193,0.2)',
+          pointBackgroundColor: '#8c7370',
+          pointHoverBackgroundColor: '#8c7370',
+          data: tallyClickedResultsToArray()
+        }
+      ]
+    },
   });
 }
 
