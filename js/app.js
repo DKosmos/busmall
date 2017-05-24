@@ -233,6 +233,13 @@ function createdRadarChart(){
   });
 }
 
+//https://www.w3schools.com/js/js_array_sort.asp
+function topFiveClicked(){
+  var topFiveArray = productArray.sort(function(a, b){return b.timesclicked - a.timesclicked;});
+  topFiveArray = topFiveArray.splice(0,5);
+  return topFiveArray;
+}
+
 generateSelectionIndexes();
 placeImgTagsInDom();
 logPreviousSelection();
