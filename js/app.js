@@ -24,10 +24,10 @@ Product.prototype.beenChosen = function () {
   this.timesselected++;
 };
 
-if (localStorage.list){
+if (localStorage.productArray){
   var counter = localStorage.counter;
   var userSelectionHistory = JSON.parse(localStorage.userSelectionHistory);
-  var excludedNumbers = localStorage.excludedNumbers;
+  var excludedNumbers = JSON.parse('[' + localStorage.excludedNumbers + ']');
   var productArray = JSON.parse(localStorage.productArray);
 } else {
   var counter = 0;
