@@ -35,26 +35,11 @@ if (localStorage.productArray){
   var excludedNumbers = JSON.parse('[' + localStorage.excludedNumbers + ']');
   var productArraySaved = JSON.parse(localStorage.productArray);
   //create array of product objects
-  var bag = new Product('Bag', './img/bag.jpg');
-  var banana = new Product('Banana', './img/banana.jpg');
-  var bathroom = new Product('Bathroom', './img/bathroom.jpg');
-  var boots = new Product('Boots', './img/boots.jpg');
-  var breakfast = new Product('Breakfast', './img/breakfast.jpg');
-  var bubblegum = new Product('Bubblegum', './img/bubblegum.jpg');
-  var chair = new Product('Chair', './img/chair.jpg');
-  var cthulhu = new Product('Cthulhu', './img/cthulhu.jpg');
-  var dogduck = new Product('Dog-Duck', './img/dog-duck.jpg');
-  var dragon = new Product('Dragon', './img/dragon.jpg');
-  var pen = new Product('Pen', './img/pen.jpg');
-  var petsweep = new Product('Pet-sweep', './img/pet-sweep.jpg');
-  var scissors = new Product('Scissors', './img/scissors.jpg');
-  var shark = new Product('Shark', './img/shark.jpg');
-  var sweep = new Product('Sweep', './img/sweep.png');
-  var tauntaun = new Product('Tauntaun', './img/tauntaun.jpg');
-  var unicorn = new Product('Unicorn', './img/unicorn.jpg');
-  var usb = new Product('USB', './img/usb.gif');
-  var watercan = new Product('Water-can', './img/water-can.jpg');
-  var wineglass = new Product('Wine-glass', './img/wine-glass.jpg');
+  for (var i=0; i<productArraySaved.length; i++){
+    var savedObj = productArraySaved[i].name.toLowerCase();
+    savedObj = savedObj.replace('-','');
+    window[savedObj] = new Product(productArraySaved[i].name, productArraySaved[i].url);
+  }
 
   var productArray = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogduck, dragon, pen, petsweep, scissors, shark, sweep, tauntaun, unicorn, usb, watercan, wineglass];
 
