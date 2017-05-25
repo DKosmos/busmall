@@ -24,6 +24,11 @@ Product.prototype.beenChosen = function () {
   this.timesselected++;
 };
 
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var canvas2 = document.getElementById('canvas2');
+var ctx2 = canvas2.getContext('2d');
+
 if (localStorage.productArray){
   var counter = parseInt(localStorage.counter);
   var userSelectionHistory = JSON.parse(localStorage.userSelectionHistory);
@@ -60,9 +65,9 @@ if (localStorage.productArray){
 
   updatedCounterHtml();
   generateSelectionIndexes();
-  placeImgTagsInDom();
-  logPreviousSelection();
-  if(counter<24){
+  if(counter<25){
+    placeImgTagsInDom();
+    logPreviousSelection();
     createEventListeners();
   } else{
     createResultTags();
@@ -103,10 +108,6 @@ if (localStorage.productArray){
   createEventListeners();
 }
 
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-var canvas2 = document.getElementById('canvas2');
-var ctx2 = canvas2.getContext('2d');
 //create functions that captures user responses, progresses through products, etc
 
 function saveToLocalStorage() {
@@ -264,6 +265,7 @@ function createSelectedChart(){
 }
 
 function createdRadarChart(){
+  console.log(unpackProductNames(), tallySelectedResultsToArray(), tallyClickedResultsToArray());
   var chart = new Chart(ctx, {
     type: 'radar',
     data: {
