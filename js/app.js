@@ -26,8 +26,6 @@ Product.prototype.beenChosen = function () {
 
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-var canvas2 = document.getElementById('canvas2');
-var ctx2 = canvas2.getContext('2d');
 
 if (localStorage.productArray){
   var counter = parseInt(localStorage.counter);
@@ -43,7 +41,7 @@ if (localStorage.productArray){
 
   var productArray = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogduck, dragon, pen, petsweep, scissors, shark, sweep, tauntaun, unicorn, usb, watercan, wineglass];
 
-  for (var i=0; i<productArray.length; i++){
+  for (i=0; i<productArray.length; i++){
     productArray[i].timesclicked = productArraySaved[i].timesclicked;
     productArray[i].timesselected = productArraySaved[i].timesselected;
   }
@@ -59,9 +57,9 @@ if (localStorage.productArray){
     createdRadarChart();
   }
 } else {
-  var counter = 0;
-  var userSelectionHistory = [];
-  var excludedNumbers = [];
+  counter = 0;
+  userSelectionHistory = [];
+  excludedNumbers = [];
   //create array of product objects
   var bag = new Product('Bag', './img/bag.jpg');
   var banana = new Product('Banana', './img/banana.jpg');
@@ -84,7 +82,7 @@ if (localStorage.productArray){
   var watercan = new Product('Water-can', './img/water-can.jpg');
   var wineglass = new Product('Wine-glass', './img/wine-glass.jpg');
 
-  var productArray = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogduck, dragon, pen, petsweep, scissors, shark, sweep, tauntaun, unicorn, usb, watercan, wineglass];
+  productArray = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogduck, dragon, pen, petsweep, scissors, shark, sweep, tauntaun, unicorn, usb, watercan, wineglass];
 
   updatedCounterHtml();
   generateSelectionIndexes();
@@ -219,36 +217,6 @@ function unpackProductNames(){
   return productNames;
 }
 
-function createClickedChart(){
-  var chart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: unpackProductNames(),
-      datasets: [{
-        label: 'Times Product Was Clicked',
-        data: tallyClickedResultsToArray(),
-        backgroundColor: ['#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3b5f52', '#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3b5f52', '#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3b5f52', '#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3v5f52'],
-      }]
-    },
-    options: {}
-  });
-}
-
-function createSelectedChart(){
-  var chart = new Chart(ctx2, {
-    type: 'bar',
-    data: {
-      labels: unpackProductNames(),
-      datasets: [{
-        label: 'Times Product Was Selected',
-        data: tallySelectedResultsToArray(),
-        backgroundColor: ['#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3b5f52', '#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3b5f52', '#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3b5f52', '#0a373f', '#d4ccc5', '#3ea79e', '#bc996f', '#3v5f52'],
-      }]
-    },
-    options: {}
-  });
-}
-
 function createdRadarChart(){
   console.log(unpackProductNames(), tallySelectedResultsToArray(), tallyClickedResultsToArray());
   var chart = new Chart(ctx, {
@@ -274,11 +242,3 @@ function createdRadarChart(){
     },
   });
 }
-
-//https://www.w3schools.com/js/js_array_sort.asp
-function topFiveClicked(){
-  var topFiveArray = productArray.sort(function(a, b){return b.timesclicked - a.timesclicked;});
-  topFiveArray = topFiveArray.splice(0,5);
-  return topFiveArray;
-}
-//create functions that tally the answers and presents the data

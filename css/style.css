@@ -6,6 +6,9 @@ header {
   text-align: center;
   margin: 0 auto;
 }
+body {
+  background: black;
+}
 h1 {
   font-size: 40px;
   font-family: roboto;
@@ -67,6 +70,9 @@ li {
 main section {
   text-align: center;
 }
+canvas:empty {
+  background: black;
+}
 canvas {
-  background: grey;
+  background: lightgrey;
 }
